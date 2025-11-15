@@ -68,6 +68,17 @@
     transform: rotateY(180deg);
   }
 
+  .module-name {
+  font-weight: 600;
+  
+  /* 1. ETWAS KLEINERE SCHRIFT */
+  font-size: 0.85rem; /* Vorher war es 0.95rem. Spiel hier mit dem Wert! */
+  
+  /* 2. UMBRUCH ERLAUBEN (WICHTIG!) */
+  overflow-wrap: break-word;
+  word-wrap: break-word; /* Fallback für ältere Browser */
+}
+
   .front, .back {
     position: absolute;
     width: 100%;
@@ -587,4 +598,5 @@
 </body>
 
 </html>
+
 
