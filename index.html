@@ -2,141 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<style>
-  /* Grundlayout */
-  body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; padding: 20px; }
-  
-  .modultafel {
-    display: flex;
-    flex-direction: column-reverse; /* Semester 1 unten, 7 oben */
-    gap: 15px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  /* Eine Semester-Zeile */
-  .semester-row {
-    display: flex;
-    height: 160px; /* Höhe der Karten */
-  }
-
-  /* Der orangene Kasten links (Semesterzahl) */
-  .semester-label {
-    background-color: #ee7f00; /* Das Uni-Orange */
-    color: white;
-    width: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    margin-right: 15px;
-    flex-shrink: 0;
-  }
-  .sem-number { font-size: 3rem; line-height: 1; }
-  .cp-total { font-size: 0.8rem; margin-top: 5px; }
-
-  /* Das Raster für die Module (30 CP = 6 Spalten) */
-  .module-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 gleich große Spalten */
-    gap: 10px;
-    width: 100%;
-  }
-
-  /* --- 3D FLIP EFFEKT START --- */
-  .card-container {
-    perspective: 1000px;
-    cursor: pointer;
-  }
-
-  /* Breiten basierend auf CP (Grid Spalten) */
-  .cp-5  { grid-column: span 1; }
-  .cp-10 { grid-column: span 2; }
-  .cp-15 { grid-column: span 3; }
-  .cp-30 { grid-column: span 6; }
-
-  .card {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-  }
-
-  .card-container.flipped .card {
-    transform: rotateY(180deg);
-  }
-
-  .module-name {
-  font-weight: 600;
-  
-  /* 1. ETWAS KLEINERE SCHRIFT */
-  font-size: 0.85rem; /* Vorher war es 0.95rem. Spiel hier mit dem Wert! */
-  
-  /* 2. UMBRUCH ERLAUBEN (WICHTIG!) */
-  overflow-wrap: break-word;
-  word-wrap: break-word; /* Fallback für ältere Browser */
-}
-
-  .front, .back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    box-sizing: border-box;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-
-  /* Vorderseite Design */
-  .front {
-    background-color: #eef5f5; /* Helles Grau/Blau aus dem Bild */
-    border-top: 8px solid #ccc; /* Platzhalter Farbe */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  /* Spezifische Farben für die Fachbereiche */
-  .informatik .front { border-color: #009682; } /* Türkis */
-  .wirtschaft .front { border-color: #ee7f00; } /* Orange */
-  .bwl .front { border-color: #d0004b; }        /* Rot/Pink */
-  .mathe .front { border-color: #9c2aa0; }      /* Lila */
-  
-  /* Deine neuen grünen Fächer */
-  .wiarbeiten .front   { border-color: #AECF43; } /* hellgrün */
-  .itrecht .front      { border-color: #AECF43; } /* hellgrün */
-  .international .front { border-color: #AECF43; } /* hellgrün */
-
-
-  .module-name { font-weight: 600; font-size: 0.95rem; }
-  .module-cp { text-align: right; font-size: 0.8rem; color: #666; }
-
-  /* Rückseite (Quiz) Design */
-  .back {
-    background-color: #333;
-    color: white;
-    transform: rotateY(180deg);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .quiz-btn {
-    margin-top: 10px;
-    padding: 5px 15px;
-    background: #ee7f00;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .quiz-btn:hover { background: #cc6d00; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -158,7 +24,9 @@
           </div>
           <div class="back">
             <p>Kannst du logisch denken?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('info1', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -171,7 +39,9 @@
           </div>
           <div class="back">
             <p>Programmierst du gerne Java?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('oose', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -184,7 +54,9 @@
           </div>
           <div class="back">
             <p>Interesse an Prozessen?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('einfWI', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -197,7 +69,9 @@
           </div>
           <div class="back">
             <p>Wie funktioniert Geld?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('bwl', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -210,7 +84,9 @@
           </div>
           <div class="back">
             <p>Magst du Mengenlehre?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('ds', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -234,7 +110,9 @@
           </div>
           <div class="back">
             <p>Vom Bastler zum Software-Architekten?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('pmt', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -247,7 +125,9 @@
           </div>
           <div class="back">
             <p>Bringst du Ordnung ins Daten-Chaos</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('db', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -260,7 +140,9 @@
           </div>
           <div class="back">
             <p>Wie läuft der Laden effizienter?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('gpm', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -273,7 +155,9 @@
           </div>
           <div class="back">
             <p>Soll an Haben – wo ist das Geld?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('rewe', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -286,7 +170,9 @@
           </div>
           <div class="back">
             <p>mal gucken ob du im Mathe Unterricht aufgepasst hast</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('mathe', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -310,7 +196,9 @@
           </div>
           <div class="back">
             <p>Wie sucht und sortiert Google so schnell?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('ads', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -323,7 +211,9 @@
           </div>
           <div class="back">
             <p>Wie baut man Software im Team?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('swt', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -336,7 +226,9 @@
           </div>
           <div class="back">
             <p>Wie steuert man einen riesigen Konzern?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('bis', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -349,7 +241,9 @@
           </div>
           <div class="back">
             <p>Hast du die nächste große Idee?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('inno', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -362,7 +256,9 @@
           </div>
           <div class="back">
             <p>Zufall oder berechenbares Risiko?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('statistik', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -386,7 +282,9 @@
           </div>
           <div class="back">
             <p>Baust du das nächste Instagram?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('wba', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -399,7 +297,9 @@
           </div>
           <div class="back">
             <p>Vertiefe, was dich wirklich kickt!</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('wi1', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -412,7 +312,9 @@
           </div>
           <div class="back">
             <p>Machst du aus Daten pures Gold?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('bi', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -425,7 +327,9 @@
           </div>
           <div class="back">
             <p>Scrum Master oder Chaos-Pilot?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('agl', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -450,7 +354,9 @@
           </div>
           <div class="back">
             <p>Hacker-Angriff oder sichere Festung?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('cybersec', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -463,7 +369,9 @@
           </div>
           <div class="back">
             <p>Genug Theorie – jetzt wird umgesetzt!</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('pdt', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -476,7 +384,9 @@
           </div>
           <div class="back">
             <p>Wie macht man Dinosaurier digital?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('dt', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -489,7 +399,9 @@
           </div>
           <div class="back">
             <p>Forschen statt nur Googeln?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('wa', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -502,7 +414,9 @@
           </div>
           <div class="back">
             <p>Ist das legal oder kann das weg?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('itr', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -526,8 +440,10 @@
             <div class="module-cp">30 cp</div>
           </div>
           <div class="back">
-            <p>Kannst du logisch denken?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <p>Zeit für die Praxis?</p>
+            <button class="quiz-btn" onclick="openQuizModal('praxis', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -553,7 +469,9 @@
           </div>
           <div class="back">
             <p>Kannst du logisch denken?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <button class="quiz-btn" onclick="openQuizModal('international', event)">
+               Quiz starten
+            </button>
           </div>
         </div>
       </div>
@@ -565,8 +483,10 @@
             <div class="module-cp">10 cp</div>
           </div>
           <div class="back">
-            <p>Programmierst du gerne Java?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <p>fast am ende?</p>
+            <button class="quiz-btn" onclick="openQuizModal('portfolio', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -578,8 +498,10 @@
             <div class="module-cp">15 cp</div>
           </div>
           <div class="back">
-            <p>Interesse an Prozessen?</p>
-            <button class="quiz-btn">Quiz starten</button>
+            <p>dein letztes Kunstwerk</p>
+            <button class="quiz-btn" onclick="openQuizModal('thesis', event)">
+  Quiz starten
+</button>
           </div>
         </div>
       </div>
@@ -589,14 +511,42 @@
 
 </div>
 
-<script>
-  function flipCard(element) {
-    element.classList.toggle('flipped');
-  }
-</script>
+<div class="modal-overlay" id="quiz-modal">
+  
+  <div class="modal-content">
+    
+  	  	<span class="close-btn" onclick="closeQuizModal()">&times;</span>
+    
+  	  	<div id="quiz-inhalt">
+      
+      <h1>Willkommen bei deinem interaktiven Modulplan!</h1>
+      <h2>Starte das Quiz!</h2>
+      <p>Vor dir liegt die komplette Modultafel vom Studiengang Wirtschaftsinformatik. Aber statt nur zu lesen, kannst du hier aktiv werden:
 
+  <ul class="anleitung-liste">
+      <li>
+        <strong>1. Entdecken</strong>
+        <p>Klick auf ein beliebiges Modul, das dich interessiert.</p>
+      </li>
+      <li>
+        <strong>2. Quizzen</strong>
+        <p>Die Karte dreht sich um. Starte das Mini-Quiz!</p>
+      </li>
+      <li>
+        <strong>3. Entscheiden</strong>
+        <p>Finde heraus, ob das Fach wirklich zu dir passt.</p>
+      </li>
+    </ul>
+    
+    <button class="quiz-btn" onclick="closeQuizModal()">Alles klar, los geht's!</button>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="quiz-data.js"></script>
+
+<script src="main.js"></script>
 </body>
-
 </html>
-
-
