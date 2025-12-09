@@ -203,6 +203,30 @@
   border-color: #ee7f00; /* Deine Akzentfarbe */
 }
 
+/* NEU: Styling für Multiple Choice */
+.multiple-choice-label {
+    display: flex; /* Für Checkbox und Text in einer Zeile */
+    align-items: center;
+    cursor: pointer;
+    /* Damit hover nur auf das Label wirkt */
+    pointer-events: auto;
+}
+
+.multiple-choice-label input[type="checkbox"] {
+    margin-right: 15px;
+    /* Macht die Checkbox größer und klickfreundlicher */
+    transform: scale(1.5);
+}
+
+.multiple-choice-label .mc-text {
+    flex-grow: 1; /* Der Text nimmt den restlichen Platz ein */
+}
+
+/* Anpassung für den Fall, dass die Option deaktiviert wird (z.B. nach Prüfung) */
+.quiz-option[style*="pointer-events: none"] {
+    cursor: default !important;
+}
+
 /* Wendet das Styling nur auf den Willkommens-Inhalt an */
 #quiz-inhalt {
   text-align: center; /* Zentriert alles */
@@ -297,3 +321,242 @@
   box-shadow: 0 4px 12px rgba(238, 127, 0, 0.3); /* Leuchtender Schatten */
   transform: translateY(-2px); /* Hebt den Button leicht an */
 }
+
+/* style.css - ERWEITERT FÜR ZUORDNUNG */
+
+/* ... (Behalte den oberen Teil unverändert) ... */
+
+/* --- NEU: Styling für Zuordnung (Drag & Drop) --- */
+
+.zuordnung-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.zuordnung-quellen-container, .zuordnung-ziele-container {
+    width: 48%;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.zuordnung-quellen h3, .zuordnung-ziele h3 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.zuordnung-item {
+    background: #ee7f00; /* Deine Akzentfarbe */
+    color: white;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    cursor: grab;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.zuordnung-item.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+}
+
+.zuordnung-ziel {
+    min-height: 60px; /* Mindesthöhe für die Dropzone */
+    background: #f8f8f8;
+    border: 2px dashed #ccc;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: border-color 0.3s, background-color 0.3s;
+    font-style: italic;
+    color: #666;
+}
+
+.zuordnung-ziel.drag-over {
+    border-color: #ee7f00; /* Akzentfarbe beim Drüberziehen */
+    background: #fff3e0;
+}
+
+.zuordnung-ziel .zuordnung-item {
+    /* Wenn ein Item abgelegt wurde, verändere das Styling im Ziel */
+    background: #5c6bc0; /* Neue Farbe für "zugewiesen" */
+    color: white;
+    margin: 0;
+    width: 100%;
+    cursor: default;
+    box-shadow: none;
+}
+
+/* --- NEU: Styling für Schwierigkeitshinweis --- */
+
+.schwierigkeit {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-right: 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+}
+
+.schwer-einfach { background-color: #4CAF50; } /* Grün */
+.schwer-mittel { background-color: #FFC107; } /* Gelb */
+.schwer-schwer { background-color: #F44336; } /* Rot */
+
+.hinweis-extra {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-left: 10px;
+    background: #ffe0b2; /* Helles Orange */
+    color: #e65100;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* --- NEU: Styling für LÜCKENTEXT (Drag & Drop) --- */
+
+.lueckentext-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.lueckentext-text {
+    font-size: 1.2rem;
+    line-height: 2.5; /* Platz für die Drop-Zonen */
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.luecke-ziel {
+    display: inline-flex; /* Damit es im Textfluss bleibt */
+    align-items: center;
+    justify-content: center;
+    min-width: 150px; /* Breite der Lücke */
+    min-height: 40px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 2px dashed #90a4ae; /* Dezenter Rand für die Dropzone */
+    border-radius: 4px;
+    vertical-align: middle;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.luecke-ziel span {
+    color: #607d8b;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.luecke-ziel.drag-over {
+    border-color: #ee7f00; /* Akzentfarbe beim Drüberziehen */
+    background: #fff3e0;
+}
+
+/* Optionen zum Ziehen (Wiederverwendung von Zuordnung-Item-Stil) */
+.lueckentext-quellen-container {
+    width: 100%; /* Volle Breite unter dem Text */
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.lueckentext-quellen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 50px;
+}
+
+.lueckentext-item {
+    /* Basierend auf zuordnung-item, aber kleiner */
+    background: #5c6bc0;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: grab;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+/* --- NEU: Styling für SORTIERUNG (Drag & Drop Liste) --- */
+
+.sortierung-wrapper {
+    margin-top: 20px;
+}
+
+.sortierung-wrapper h3 {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.sortierung-liste {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sortierung-item {
+    background: #f0f0f0;
+    padding: 15px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    cursor: grab;
+    border: 2px solid #ccc;
+    transition: all 0.2s;
+    font-weight: 500;
+    display: flex; /* Für Positionsnummer */
+    align-items: center;
+}
+
+.sortierung-item:hover {
+    border-color: #ee7f00;
+    background: #e6e6e6;
+}
+
+.sortierung-item.dragging {
+    opacity: 0.5;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Optisches Feedback beim Ziehen */
+.sortierung-item.drag-over-above {
+    border-top: 4px solid #ee7f00; /* Orange Linie oben */
+}
+
+.sortierung-item.drag-over-below {
+    border-bottom: 4px solid #ee7f00; /* Orange Linie unten */
+}
+
+/* Styling für Positionsnummer und Fehler */
+.sort-position {
+    font-weight: bold;
+    min-width: 25px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.sort-fehler {
+    font-size: 0.9rem;
+    color: darkred;
+    margin-left: 10px;
+    font-style: italic;
+}
+
